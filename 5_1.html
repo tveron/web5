@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<head>  
+	<title>5.1</title>
+	<meta charset="utf-8">
+	<script>
+  </script>
+</head>
+<body>
+  <div>
+  <script type="text/javascript">
+		var m = [
+				{
+					text: 'Животные',
+					childs: [
+						{
+							text: 'Млекопитающие',
+							childs: [
+								'Коровы',
+								'Ослы',
+								'Собаки',
+								'Тигры'
+							]
+							},
+						{
+							text: 'Другие',
+							childs: [
+								'Змеи',
+								'Птицы',
+								'Ящерицы'
+							]
+						},
+						{
+							text: 'Рыбы',
+							childs: [
+								{
+									text: 'Аквариумные',
+									childs: [
+										'Гуппи',
+										'Скалярии'
+									]
+								},
+								{
+									text: 'Морские',
+									childs: [
+										'Морская форель'
+									]
+								}
+							]
+						}
+					]
+				}
+				];
+			
+				function tree(childs) 
+				{
+					var ul = document.createElement('ul')
+					for (var ch of childs) 
+					{
+						var li = document.createElement('li')
+						if (ch.text !== undefined) 
+							li.append(ch.text)
+						if (typeof ch !== 'object')
+							li.append(ch)
+						else if (ch.childs !== undefined) 
+							li.append(tree(ch.childs))
+						ul.append(li)
+					}
+					return ul
+				}
+		
+				document.body.append(tree(m))
+		
+				function informat(branch)
+				{
+					var infoNode = {node: branch, minin: []}
+					
+					for(var key in branch)
+						infoNode.minin.push(key + " " + branch[key])
+					
+					console.log(infoNode)
+				
+					for (var i = 0; i < branch.children.length; i++)
+						informat(branch.children[i])
+				}
+				
+				informat(document.documentElement)
+	</script>
+  </div>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>5.2_3</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+	<script type="text/javascript">
+		var m = [
+			{
+				text: 'Животные',
+				childs: [
+					{
+						text: 'Млекопитающие',
+						childs: [
+							'Коровы',
+							'Ослы',
+							'Собаки',
+							'Тигры'
+						]
+					},
+					{
+						text: 'Другие',
+						childs: [
+							'Змеи',
+							'Птицы',
+							'Ящерицы'
+						]
+					},
+					{
+						text: 'Рыбы',
+						childs: [
+							{
+								text: 'Аквариумные',
+								childs: [
+									'Гуппи',
+									'Скалярии'
+								]
+							},
+							{
+								text: 'Морские',
+								childs: [
+									'Морская форель'
+								]
+							}
+						]
+					}
+				]
+			}
+			];
+		
+		function NYtree(childs) 
+		{
+			var ul = $('<ul/>')
+			
+			for (var ch of childs) 
+			{
+				var li = $('<li/>')
+				if (ch.text !== undefined) 
+					li.append(ch.text)
+				if (typeof ch !== 'object')
+					li.append(ch)
+				else if (ch.childs !== undefined) 
+					li.append(NYtree(ch.childs))
+				li.on('click', 
+				function(s) 
+				{
+					s.preventDefault()
+					$(this.firstElementChild).slideToggle()
+					console.log(this.firstChild.data, $(this).find("li").length)
+					return false
+				})
+				ul.append(li)
+			}
+			return ul
+		}
+		$("body").append(NYtree(m))
+	</script>
+</body>
+</html>
